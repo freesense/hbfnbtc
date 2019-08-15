@@ -1,0 +1,106 @@
+version: "3"
+
+services:
+  hbf:
+    image: zinicl/hbf:latest
+    command: ./hbf --name=hbfmain --coin=btcusdt,ethusdt,ethbtc --http=0.0.0.0:80
+    restart: on-failure
+    volumes:
+      - $PWD/data:/app/data
+    expose:
+      - "12880"
+      - "12881"
+    ports:
+      - "32800:80"
+    logging: &logging
+      driver: "json-file"
+      options:
+        max-size: "10M"
+        max-file: "5"
+
+  nbtc:
+    image: zinicl/nbtc:latest
+    command: ./nbtc --hbf=hbf:12880 --svr=nbtc:13880 --access-key=855c56dc-69b5-40f0-937f-efc299303a64 --secret-key=93703a04-6e68-49f3-9367-6bb5c666ea43
+    restart: on-failure
+    depends_on:
+      - hbf
+    expose:
+      - "13880"
+    logging:
+      <<: *logging
+
+  nbtc_edtp:
+    image: zinicl/nbtc:latest
+    command: ./nbtc --hbf=hbf:12880 --svr=nbtc_edtp:13880 --name=nbtc_edtp --access-key=75fe3413-95be-4f79-bb21-55d730d8c8cb --secret-key=13587732-27e1-4034-9fa8-7e85d5d92de4
+    restart: on-failure
+    depends_on:
+      - hbf
+    expose:
+      - "13880"
+    logging:
+      <<: *logging
+
+  filldepth:
+    image: zinicl/filldepth:latest
+    command: ./filldepth --hbf=hbf:12880 --svr=filldepth:12881
+    restart: on-failure
+    volumes:
+      - $PWD/data:/app/data
+    depends_on:
+      - hbf
+    expose:
+      - "12881"
+    logging:
+      <<: *logging
+
+  target:
+    image: zinicl/target:latest
+    command: ./target --hbf=hbf:12880 --svr=target:12881
+    restart: on-failure
+    volumes:
+      - $PWD/data:/app/data
+    depends_on:
+      - hbf
+    expose:
+      - "12881"
+    logging:
+      <<: *logging
+
+  tpv1:
+    image: zinicl/tpv1:latest
+    command: ./tpv1 --hbf=hbf:12880 --svr=tpv1:12881
+    restart: on-failure
+    volumes:
+      - $PWD/data:/app/data
+    depends_on:
+      - hbf
+    expose:
+      - "12881"
+    logging:
+      <<: *logging
+
+  fixed:
+    image: zinicl/fixed:latest
+    command: ./fixed --hbf=hbf:12880 --svr=fixed:12881
+    restart: on-failure
+    volumes:
+      - $PWD/data:/app/data
+    depends_on:
+      - hbf
+    expose:
+      - "12881"
+    logging:
+      <<: *logging
+
+  cancel:
+    image: zinicl/cancel:latest
+    command: ./cancel --hbf=hbf:12880 --svr=cancel:12881
+    restart: on-failure
+    volumes:
+      - $PWD/data:/app/data
+    depends_on:
+      - hbf
+    expose:
+      - "12881"
+    logging:
+      <<: *logging
