@@ -39,6 +39,17 @@ services:
       - "13880"
     logging:
       <<: *logging
+      
+  nbtc_hkt:
+    image: zinicl/nbtc:latest
+    command: ./nbtc --hbf=hbf:12880 --svr=nbtc_hkt:13880 --name=nbtc_hkt --access-key=582f7471-cfcf-4f3b-96dd-ce4775781e2c --secret-key=12376573-7ed7-4ed8-aacc-ce858e28d019
+    restart: on-failure
+    depends_on:
+      - hbf
+    expose:
+      - "13880"
+    logging:
+      <<: *logging
 
   filldepth:
     image: zinicl/filldepth:latest
