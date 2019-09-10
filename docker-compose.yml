@@ -42,7 +42,7 @@ services:
       
   nbtc_hkt:
     image: zinicl/nbtc:latest
-    command: ./nbtc --hbf=hbf:12880 --svr=nbtc_hkt:13880 --name=nbtc_hkt --access-key=582f7471-cfcf-4f3b-96dd-ce4775781e2c --secret-key=12376573-7ed7-4ed8-aacc-ce858e28d019
+    command: ./nbtc --hbf=hbf:12880 --svr=nbtc_hkt:13880 --name=nbtc_hkt --coinmarketcap-apikey=705bf433-d081-488a-8688-1d49a7a53c20 --access-key=582f7471-cfcf-4f3b-96dd-ce4775781e2c --secret-key=12376573-7ed7-4ed8-aacc-ce858e28d019
     restart: on-failure
     depends_on:
       - hbf
