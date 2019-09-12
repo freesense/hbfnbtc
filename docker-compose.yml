@@ -56,7 +56,7 @@ services:
     command: ./filldepth --hbf=hbf:12880 --svr=filldepth:12881
     restart: on-failure
     volumes:
-      - $PWD/data:/app/data
+      - ./data:/app/data
     depends_on:
       - hbf
     expose:
@@ -69,7 +69,7 @@ services:
     command: ./target --hbf=hbf:12880 --svr=target:12881
     restart: on-failure
     volumes:
-      - $PWD/data:/app/data
+      - ./data:/app/data
     depends_on:
       - hbf
     expose:
@@ -82,7 +82,7 @@ services:
     command: ./tpv1 --hbf=hbf:12880 --svr=tpv1:12881
     restart: on-failure
     volumes:
-      - $PWD/data:/app/data
+      - ./data:/app/data
     depends_on:
       - hbf
     expose:
@@ -95,7 +95,7 @@ services:
     command: ./fixed --hbf=hbf:12880 --svr=fixed:12881
     restart: on-failure
     volumes:
-      - $PWD/data:/app/data
+      - ./data:/app/data
     depends_on:
       - hbf
     expose:
@@ -108,7 +108,7 @@ services:
     command: ./cancel --hbf=hbf:12880 --svr=cancel:12881
     restart: on-failure
     volumes:
-      - $PWD/data:/app/data
+      - ./data:/app/data
     depends_on:
       - hbf
     expose:
