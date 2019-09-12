@@ -6,7 +6,7 @@ services:
     command: ./hbf --name=hbfmain --coin=btcusdt,ethusdt,ethbtc --http=0.0.0.0:80 --coinmarketcap-apikey=705bf433-d081-488a-8688-1d49a7a53c20
     restart: on-failure
     volumes:
-      - $PWD/data:/app/data
+      - ./data:/app/data
     expose:
       - "12880"
       - "12881"
