@@ -50,6 +50,17 @@ services:
       - "13880"
     logging:
       <<: *logging
+      
+  nbtc_smsc:
+    image: zinicl/nbtc:latest
+    command: ./nbtc --hbf=hbf:12880 --svr=nbtc_smsc:13880 --name=nbtc_smsc --access-key=20b0c6d2-1739-4732-8b36-0cb17ea9d686 --secret-key=dfc47685-6713-413e-97e3-27fa6ebacdee
+    restart: on-failure
+    depends_on:
+      - hbf
+    expose:
+      - "13880"
+    logging:
+      <<: *logging
 
   filldepth:
     image: zinicl/filldepth:latest
